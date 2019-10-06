@@ -250,7 +250,6 @@ RCT_EXPORT_METHOD(trackImpression:(nonnull NSString *)accountName
     if (eaid) {
         impression[@"epid"] = epid;
     }
-    
     NSString* esid = [RCTConvert NSString:payload[@"esid"]];
     if (esid) {
         impression[@"esid"] = esid;
