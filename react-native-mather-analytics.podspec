@@ -21,6 +21,6 @@ Pod::Spec.new do |s|
 
   s.dependency "React"
   #  s.dependency 'AFNetworking', '~> 3.0'
-  s.dependency "IOS-Listener"
+  #s.dependency "IOS-Listener"
 end
 

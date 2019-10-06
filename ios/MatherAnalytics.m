@@ -3,21 +3,6 @@
 
 @implementation MatherAnalytics
 
-- (instancetype)init
-{
-    if ((self = [super init])) {
-/*         MListener *mListener = [MListenerGlobal getListener];
-        MListener *mListener;
-        mListener = [[MListener alloc] init:@"http:www.i.matheranalytics.com"
-                                      appId:@"v1"
-                                 customerId:@"xxxx"
-                                     market:@"xxxxxxxx"
-                               cookieDomain:@"newsreader.com"
-                     enableActivityTracking:YES]; */
-    }
-    return self;
-}
-
 RCT_EXPORT_MODULE()
 
 RCT_EXPORT_METHOD(trackPageView:(nonnull NSString *)accountName
@@ -159,21 +144,21 @@ RCT_EXPORT_METHOD(trackPageView:(nonnull NSString *)accountName
     if (articleType) {
         options[@"setArticleType"] = articleType;
     }
-    NSNumber* characterCount = [RCTConvert NSNumber:payload[@"characterCount"]];
+    NSString* characterCount = [RCTConvert NSString:payload[@"characterCount"]];
     if (characterCount) {
-        options[@"setCharacterCount"] = characterCount;
+        options[@"setCharacterCount"] = [NSNumber numberWithInteger:[characterCount intValue]];
     }
-    NSNumber* wordCount = [RCTConvert NSNumber:payload[@"wordCount"]];
+    NSString* wordCount = [RCTConvert NSString:payload[@"wordCount"]];
     if (wordCount) {
-        options[@"setWordCount"] = wordCount;
+        options[@"setWordCount"] = [NSNumber numberWithInteger:[wordCount intValue]];
     }
-    NSNumber* paragraphCount = [RCTConvert NSNumber:payload[@"paragraphCount"]];
+    NSString* paragraphCount = [RCTConvert NSString:payload[@"paragraphCount"]];
     if (paragraphCount) {
-        options[@"setParagraphCount"] = paragraphCount;
+        options[@"setParagraphCount"] = [NSNumber numberWithInteger:[paragraphCount intValue]];
     }
-    NSNumber* scrollPercent = [RCTConvert NSNumber:payload[@"scrollPercent"]];
+    NSString* scrollPercent = [RCTConvert NSString:payload[@"scrollPercent"]];
     if (scrollPercent) {
-        options[@"setScrollPercent"] = scrollPercent;
+        options[@"setScrollPercent"] = [NSNumber numberWithInteger:[scrollPercent intValue]];
     }
     NSString* pageNumber = [RCTConvert NSString:payload[@"pageNumber"]];
     if (pageNumber) {
