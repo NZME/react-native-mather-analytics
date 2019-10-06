@@ -1,7 +1,7 @@
 {
   "name": "react-native-mather-analytics",
   "title": "React Native Mather Analytics",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "TODO",
   "types": "./types/index.d.ts",
   "main": "./lib/index.js",

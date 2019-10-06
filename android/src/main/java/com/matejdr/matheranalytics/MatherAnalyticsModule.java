@@ -189,7 +189,7 @@ public class MatherAnalyticsModule extends ReactContextBaseJavaModule {
                         && addCtxSection.hasKey("value") && addCtxSection.getType("value") == ReadableType.Map) {
                     mPageView.addCtxSection(
                             addCtxSection.getString("name"),
-                            addCtxSection.getArray("value")
+                            addCtxSection.getMap("value")
                     );
                 }
             }
