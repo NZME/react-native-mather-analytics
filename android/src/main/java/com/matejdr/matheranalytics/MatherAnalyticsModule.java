@@ -186,10 +186,10 @@ public class MatherAnalyticsModule extends ReactContextBaseJavaModule {
             if (payload.hasKey("addCtxSection") && payload.getType("addCtxSection") == ReadableType.Map) {
                 ReadableMap addCtxSection = payload.getMap("addCtxSection");
                 if (addCtxSection.hasKey("name") && addCtxSection.getType("name") == ReadableType.String
-                        && addCtxSection.hasKey("value") && addCtxSection.getType("value") == ReadableType.Array) {
+                        && addCtxSection.hasKey("value") && addCtxSection.getType("value") == ReadableType.Map) {
                     mPageView.addCtxSection(
                             addCtxSection.getString("name"),
-                            ConvertReadableToMap.getArrayOfStrings(addCtxSection.getArray("value"))
+                            addCtxSection.getArray("value")
                     );
                 }
             }

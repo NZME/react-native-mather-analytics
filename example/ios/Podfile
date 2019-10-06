@@ -1,8 +1,12 @@
 platform :ios, '10.0'
 
+source 'https://github.com/mathereconomics/CocoaPodSpecs.git'
+
 	target 'example' do
 		rn_path = '../node_modules/react-native'
-	
+
+        pod 'boost-for-react-native', :podspec => 'https://raw.githubusercontent.com/react-native-community/boost-for-react-native/master/boost-for-react-native.podspec'
+
 		pod 'yoga', path: "#{rn_path}/ReactCommon/yoga/yoga.podspec"
 		pod 'DoubleConversion', :podspec => "#{rn_path}/third-party-podspecs/DoubleConversion.podspec"
 		pod 'Folly', :podspec => "#{rn_path}/third-party-podspecs/Folly.podspec"
@@ -26,6 +30,8 @@ platform :ios, '10.0'
 			'RCTGeolocation',
 			'DevSupport'
 		]
-	
+
+        #pod 'AFNetworking', :git => 'https://github.com/AFNetworking/AFNetworking.git'
+		pod 'IOS-Listener'
 		pod 'react-native-mather-analytics', :path => '../../react-native-mather-analytics.podspec'
 	end

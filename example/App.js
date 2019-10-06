@@ -70,11 +70,11 @@ export default class App extends Component<{}> {
       scrollPercent: '50',
       pageNumber: 'A5',
       addCtxSection: {
-        name: 'keywords',
-        value: [
-          'sports',
-          'highschool',
-        ],
+        name: 'identities',
+        value: {
+          'type': 'paywallUserId',
+          'id': 'paywallUserId',
+        },
       },
       userDB: {
         minPageViews: 2,
