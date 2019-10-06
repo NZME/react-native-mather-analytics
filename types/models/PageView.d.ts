@@ -24,11 +24,11 @@ export default interface PageView {
   articleSource?: string;
   mediaType?: string;
   articleType?: string;
-  characterCount?: string;
-  wordCount?: string;
-  paragraphCount?: string;
-  scrollPercent?: string;
-  pageNumber?: string;
+  characterCount?: string | number;
+  wordCount?: string | number;
+  paragraphCount?: string | number;
+  scrollPercent?: string | number;
+  pageNumber?: string | number;
   addCtxSection?: CtxSection;
   userDB?: UserDB;
 }

@@ -163,24 +163,44 @@ public class MatherAnalyticsModule extends ReactContextBaseJavaModule {
                 mPageView.articleType(payload.getString("articleType"));
             }
 
-            if (payload.hasKey("characterCount") && payload.getType("characterCount") == ReadableType.String) {
-                mPageView.characterCount(payload.getString("characterCount"));
+            if (payload.hasKey("characterCount")) {
+                if (payload.getType("characterCount") == ReadableType.String) {
+                    mPageView.characterCount(payload.getString("characterCount"));
+                } else if (payload.getType("characterCount") == ReadableType.Number) {
+                    mPageView.characterCount(payload.getInt("characterCount"));
+                }
             }
 
-            if (payload.hasKey("wordCount") && payload.getType("wordCount") == ReadableType.String) {
-                mPageView.wordCount(payload.getString("wordCount"));
+            if (payload.hasKey("wordCount")) {
+                if (payload.getType("wordCount") == ReadableType.String) {
+                    mPageView.wordCount(payload.getString("wordCount"));
+                } else if (payload.getType("wordCount") == ReadableType.Number) {
+                    mPageView.wordCount(payload.getInt("wordCount"));
+                }
             }
 
-            if (payload.hasKey("paragraphCount") && payload.getType("paragraphCount") == ReadableType.String) {
-                mPageView.paragraphCount(payload.getString("paragraphCount"));
+            if (payload.hasKey("paragraphCount")) {
+                if (payload.getType("paragraphCount") == ReadableType.String) {
+                    mPageView.paragraphCount(payload.getString("paragraphCount"));
+                } else if (payload.getType("paragraphCount") == ReadableType.Number) {
+                    mPageView.paragraphCount(payload.getInt("paragraphCount"));
+                }
             }
 
-            if (payload.hasKey("scrollPercent") && payload.getType("scrollPercent") == ReadableType.String) {
-                mPageView.scrollPercent(payload.getString("scrollPercent"));
+            if (payload.hasKey("scrollPercent")) {
+                if (payload.getType("scrollPercent") == ReadableType.String) {
+                    mPageView.scrollPercent(payload.getString("scrollPercent"));
+                } else if (payload.getType("scrollPercent") == ReadableType.Number) {
+                    mPageView.scrollPercent(payload.getInt("scrollPercent"));
+                }
             }
 
-            if (payload.hasKey("pageNumber") && payload.getType("pageNumber") == ReadableType.String) {
-                mPageView.pageNumber(payload.getString("pageNumber"));
+            if (payload.hasKey("pageNumber")) {
+                if (payload.getType("pageNumber") == ReadableType.String) {
+                    mPageView.pageNumber(payload.getString("pageNumber"));
+                } else if (payload.getType("pageNumber") == ReadableType.Number) {
+                    mPageView.pageNumber(payload.getInt("pageNumber"));
+                }
             }
 
             if (payload.hasKey("addCtxSection") && payload.getType("addCtxSection") == ReadableType.Map) {
@@ -265,11 +285,27 @@ public class MatherAnalyticsModule extends ReactContextBaseJavaModule {
 
     private MUserDB getUserDB(String accountName, String accountNumber, ReadableMap userDB) {
         MUserDB.Builder newUserDB = new MUserDB.Builder(getMListener(accountName, accountNumber));
-        if (userDB.hasKey("minPageViews") && userDB.getType("minPageViews") == ReadableType.Number) {
-            newUserDB.minPageViews(userDB.getInt("minPageViews"));
+        if (userDB.hasKey("minPageViews")) {
+            if (userDB.getType("minPageViews") == ReadableType.Number) {
+                newUserDB.minPageViews(userDB.getInt("minPageViews"));
+            } else if (userDB.getType("minPageViews") == ReadableType.String) {
+                try {
+                    newUserDB.minPageViews(Integer.parseInt(userDB.getString("minPageViews")));
+                } catch (NumberFormatException e) {
+                    // do nothing
+                }
+            }
         }
-        if (userDB.hasKey("timeoutMs") && userDB.getType("timeoutMs") == ReadableType.Number) {
-            newUserDB.timeoutMs(userDB.getInt("timeoutMs"));
+        if (userDB.hasKey("timeoutMs")) {
+            if (userDB.getType("timeoutMs") == ReadableType.Number) {
+                newUserDB.timeoutMs(userDB.getInt("timeoutMs"));
+            } else if (userDB.getType("timeoutMs") == ReadableType.String) {
+                try {
+                    newUserDB.timeoutMs(Integer.parseInt(userDB.getString("timeoutMs")));
+                } catch (NumberFormatException e) {
+                    // do nothing
+                }
+            }
         }
         if (userDB.hasKey("noCache") && userDB.getType("noCache") == ReadableType.Boolean) {
             newUserDB.noCache(userDB.getBoolean("noCache"));

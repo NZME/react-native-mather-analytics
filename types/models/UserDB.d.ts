@@ -1,6 +1,6 @@
 export default interface UserDB {
-  minPageViews?: number;
-  timeoutMs?: number;
+  minPageViews?: number | string;
+  timeoutMs?: number | string;
   noCache?: boolean;
   userDBUrl?: string;
 }
