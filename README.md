@@ -25,16 +25,6 @@ module.exports = {
 
 - Make `Podfile` and `pod install && pod update`
 
-```rb
-source 'https://github.com/mathereconomics/CocoaPodSpecs.git'
-
-platform :ios, '10.0'
-
-target 'YOUR_PROJECT_ID' do
-    pod 'IOS-Listener'
-end
-```
-
 ### Android
 
 - Add maven source to repositories in `android/build.gradle`

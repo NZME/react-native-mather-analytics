@@ -1,7 +1,5 @@
 platform :ios, '10.0'
 
-#source 'https://github.com/mathereconomics/CocoaPodSpecs.git'
-
 	target 'example' do
 		rn_path = '../node_modules/react-native'
 
@@ -32,6 +30,5 @@ platform :ios, '10.0'
 		]
 
         #pod 'AFNetworking', :git => 'https://github.com/AFNetworking/AFNetworking.git'
-		#pod 'IOS-Listener'
 		pod 'react-native-mather-analytics', :path => '../../react-native-mather-analytics.podspec'
 	end
