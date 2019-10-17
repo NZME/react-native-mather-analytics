@@ -1,6 +1,7 @@
 #import "MatherAnalytics.h"
 #import <React/RCTConvert.h>
 #import <MListener.h>
+#import <MListenerGlobal.h>
 
 @implementation MatherAnalytics
 
@@ -10,13 +11,7 @@ RCT_EXPORT_METHOD(trackPageView:(nonnull NSString *)accountName
                   accountNumber:(nonnull NSString *)accountNumber
                   payload:(nonnull NSDictionary *)payload)
 {
-    MListener *mListener;
-    mListener = [[MListener alloc] init:@"http:www.i.matheranalytics.com"
-        appId:@"v1"
-        customerId:accountName
-        market:accountNumber
-        cookieDomain:@"newsreader.com"
-        enableActivityTracking:YES];
+    MListener *mListener = [MListenerGlobal getListener:@(accountName) accountNumber:@(accountNumber)];
 
     /**
      @"setTitle" : @"Welcome to the News Reader",
@@ -183,13 +178,7 @@ RCT_EXPORT_METHOD(trackAction:(nonnull NSString *)accountName
                   accountNumber:(nonnull NSString *)accountNumber
                   payload:(nonnull NSDictionary *)payload)
 {
-        MListener *mListener;
-        mListener = [[MListener alloc] init:@"http:www.i.matheranalytics.com"
-            appId:@"v1"
-            customerId:accountName
-            market:accountNumber
-            cookieDomain:@"newsreader.com"
-            enableActivityTracking:YES];
+    MListener *mListener = [MListenerGlobal getListener:@(accountName) accountNumber:@(accountNumber)];
 
     NSMutableDictionary *event = [[NSMutableDictionary alloc] init];
         
@@ -220,13 +209,7 @@ RCT_EXPORT_METHOD(trackImpression:(nonnull NSString *)accountName
                   accountNumber:(nonnull NSString *)accountNumber
                   payload:(nonnull NSDictionary *)payload)
 {
-    MListener *mListener;
-    mListener = [[MListener alloc] init:@"http:www.i.matheranalytics.com"
-        appId:@"v1"
-        customerId:accountName
-        market:accountNumber
-        cookieDomain:@"newsreader.com"
-        enableActivityTracking:YES];
+    MListener *mListener = [MListenerGlobal getListener:@(accountName) accountNumber:@(accountNumber)];
 
     NSMutableDictionary *impression = [[NSMutableDictionary alloc] init];
     
