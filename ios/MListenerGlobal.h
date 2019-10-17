@@ -7,7 +7,7 @@
 
 @property (nonatomic, retain) MListener *mListener;
 
-+ (id<MListener>)getListener:(NSString *)accountName
++ (id)getListener:(NSString *)accountName
                accountNumber:(NSString *)accountNumber;
 
 @end

@@ -1,11 +1,12 @@
 #import "MListenerGlobal.h"
 
-
 @implementation MListenerGlobal
+
+@synthesize mListener;
 
 static NSMutableDictionary *mListenerDictionary = nil;
 
-+ (id)getListener(NSString *accountName, NSString *accountNumber) {
++ (id)getListener:(NSString *)accountName accountNumber:(NSString *)accountNumber {
     if (!mListenerDictionary) {
         mListenerDictionary = [[NSMutableDictionary alloc] initWithCapacity:20];
     }
@@ -14,7 +15,7 @@ static NSMutableDictionary *mListenerDictionary = nil;
 
     MListener *mListener;
 
-    mListener = [mListenerDictionary valueForKey:@(listenerKey)];
+    mListener = [mListenerDictionary valueForKey:listenerKey];
     if (!mListener) {
         mListener = [[MListener alloc] init:@"http:www.i.matheranalytics.com"
                 appId:@"v1"
@@ -23,10 +24,10 @@ static NSMutableDictionary *mListenerDictionary = nil;
                 cookieDomain:@"newsreader.com"
                 enableActivityTracking:YES];
 
-        mListenerDictionary[@(listenerKey)] = mListener;
+        mListenerDictionary[listenerKey] = mListener;
     }
 
-    return [MListener mListener];
+    return mListener;
 }
 
 @end
