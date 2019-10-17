@@ -10,14 +10,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/matejdr/react-native-mather-analytics.git",
-    "baseUrl": "https://github.com/matejdr/react-native-mather-analytics"
+    "url": "git+https://github.com/NZME/react-native-mather-analytics.git",
+    "baseUrl": "https://github.com/NZME/react-native-mather-analytics"
   },
   "keywords": [
     "react-native"
   ],
   "author": {
-    "name": "Matej DRobnic",
+    "name": "Matej Drobnic",
     "email": "matej.dr@gmail.com"
   },
   "license": "MIT",

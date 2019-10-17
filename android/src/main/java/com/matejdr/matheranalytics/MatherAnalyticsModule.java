@@ -8,6 +8,7 @@ import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.ReadableType;
+import com.facebook.react.bridge.LifecycleEventListener;
 
 import com.matheranalytics.listener.tracker.MListener;
 import com.matheranalytics.listener.tracker.MUserDB;
@@ -16,13 +17,14 @@ import com.matheranalytics.listener.tracker.events.MActionEvent;
 import com.matheranalytics.listener.tracker.events.MUnstructured;
 import com.matheranalytics.listener.tracker.MLogger;
 
-public class MatherAnalyticsModule extends ReactContextBaseJavaModule {
+public class MatherAnalyticsModule extends ReactContextBaseJavaModule implements LifecycleEventListener {
 
     private final ReactApplicationContext reactContext;
 
     public MatherAnalyticsModule(ReactApplicationContext reactContext) {
         super(reactContext);
         this.reactContext = reactContext;
+        reactContext.addLifecycleEventListener(this);
     }
 
     @Override
@@ -37,7 +39,7 @@ public class MatherAnalyticsModule extends ReactContextBaseJavaModule {
         if (!mListenerList.containsKey(listenerId)) {
             MListener mListener = new MListener
                     .Builder(getCurrentActivity(), accountName, accountNumber)
-                    .logLevel(MLogger.LogLevel.DEBUG)
+                    //.logLevel(MLogger.LogLevel.DEBUG)
                     .enableActivityTracking(true)
                     .build();
             mListenerList.put(listenerId, mListener);
@@ -315,5 +317,26 @@ public class MatherAnalyticsModule extends ReactContextBaseJavaModule {
         }
 
         return newUserDB.build();
+    }
+
+    @Override
+    public void onHostResume() {
+        for (MListener mListener : mListenerList.values()) {
+            mListener.onResume();
+        }
+    }
+
+    @Override
+    public void onHostPause() {
+        for (MListener mListener : mListenerList.values()) {
+            mListener.onPause();
+        }
+    }
+
+    @Override
+    public void onHostDestroy() {
+        for (MListener mListener : mListenerList.values()) {
+            mListener.onDestroy();
+        }
     }
 }
