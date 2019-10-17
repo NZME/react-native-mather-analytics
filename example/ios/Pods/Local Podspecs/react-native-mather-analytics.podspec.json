@@ -1,0 +1,32 @@
+{
+  "name": "react-native-mather-analytics",
+  "version": "1.0.2",
+  "summary": "TODO",
+  "description": "react-native-mather-analytics",
+  "homepage": "https://github.com/NZME/react-native-mather-analytics",
+  "license": "MIT",
+  "authors": {
+    "Matej DRobnic": "matej.dr@gmail.com"
+  },
+  "platforms": {
+    "ios": "9.0",
+    "tvos": "10.0"
+  },
+  "source": {
+    "git": "https://github.com/NZME/react-native-mather-analytics.git",
+    "tag": "1.0.2"
+  },
+  "source_files": "ios/**/*.{h,m,swift}",
+  "requires_arc": true,
+  "dependencies": {
+    "React": [
+
+    ]
+  },
+  "subspecs": [
+    {
+      "name": "IOS-Listener",
+      "source_files": "Libraries/IOS-Listener/**/*.{h,m}"
+    }
+  ]
+}

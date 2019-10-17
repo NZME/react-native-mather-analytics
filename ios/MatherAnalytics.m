@@ -1,5 +1,6 @@
 #import "MatherAnalytics.h"
 #import <React/RCTConvert.h>
+#import <MListener.h>
 
 @implementation MatherAnalytics
 
@@ -9,13 +10,13 @@ RCT_EXPORT_METHOD(trackPageView:(nonnull NSString *)accountName
                   accountNumber:(nonnull NSString *)accountNumber
                   payload:(nonnull NSDictionary *)payload)
 {
-//    MListener *mListener;
-//    mListener = [[MListener alloc] init:@"http:www.i.matheranalytics.com"
-//        appId:@"v1"
-//        customerId:accountName
-//        market:accountNumber
-//        cookieDomain:@"newsreader.com"
-//        enableActivityTracking:YES];
+    MListener *mListener;
+    mListener = [[MListener alloc] init:@"http:www.i.matheranalytics.com"
+        appId:@"v1"
+        customerId:accountName
+        market:accountNumber
+        cookieDomain:@"newsreader.com"
+        enableActivityTracking:YES];
 
     /**
      @"setTitle" : @"Welcome to the News Reader",
@@ -174,22 +175,21 @@ RCT_EXPORT_METHOD(trackPageView:(nonnull NSString *)accountName
 //    NSDictionary* userDB = [RCTConvert NSDictionary:payload[@"userDB"]];
 //    if (userDB) {
 //    }
-    
-    
-//    [mListener trackPageView:pageUrl options:options];
+
+    [mListener trackPageView:pageUrl options:options];
 }
 
 RCT_EXPORT_METHOD(trackAction:(nonnull NSString *)accountName
                   accountNumber:(nonnull NSString *)accountNumber
                   payload:(nonnull NSDictionary *)payload)
 {
-    //    MListener *mListener;
-    //    mListener = [[MListener alloc] init:@"http:www.i.matheranalytics.com"
-    //        appId:@"v1"
-    //        customerId:accountName
-    //        market:accountNumber
-    //        cookieDomain:@"newsreader.com"
-    //        enableActivityTracking:YES];
+        MListener *mListener;
+        mListener = [[MListener alloc] init:@"http:www.i.matheranalytics.com"
+            appId:@"v1"
+            customerId:accountName
+            market:accountNumber
+            cookieDomain:@"newsreader.com"
+            enableActivityTracking:YES];
 
     NSMutableDictionary *event = [[NSMutableDictionary alloc] init];
         
@@ -213,20 +213,20 @@ RCT_EXPORT_METHOD(trackAction:(nonnull NSString *)accountName
 //        impression[@"custom"] = custom;
 //    }
 
-//    [mListener trackEvent:event];
+    [mListener trackEvent:event];
 }
 
 RCT_EXPORT_METHOD(trackImpression:(nonnull NSString *)accountName
                   accountNumber:(nonnull NSString *)accountNumber
                   payload:(nonnull NSDictionary *)payload)
 {
-//    MListener *mListener;
-//    mListener = [[MListener alloc] init:@"http:www.i.matheranalytics.com"
-//        appId:@"v1"
-//        customerId:accountName
-//        market:accountNumber
-//        cookieDomain:@"newsreader.com"
-//        enableActivityTracking:YES];
+    MListener *mListener;
+    mListener = [[MListener alloc] init:@"http:www.i.matheranalytics.com"
+        appId:@"v1"
+        customerId:accountName
+        market:accountNumber
+        cookieDomain:@"newsreader.com"
+        enableActivityTracking:YES];
 
     NSMutableDictionary *impression = [[NSMutableDictionary alloc] init];
     
@@ -261,7 +261,7 @@ RCT_EXPORT_METHOD(trackImpression:(nonnull NSString *)accountName
 //        impression[@"custom"] = custom;
 //    }
 
-//    [mListener trackAdImpression:impression];
+    [mListener trackAdImpression:impression];
 }
 
 static NSDate* getDateFromString(NSString* time, NSString* timeZone, NSString* format)

@@ -22,5 +22,9 @@ Pod::Spec.new do |s|
   s.dependency "React"
   #  s.dependency 'AFNetworking', '~> 3.0'
   #s.dependency "IOS-Listener"
+
+  s.subspec "IOS-Listener" do |ss|
+    ss.source_files         = "Libraries/IOS-Listener/**/*.{h,m}"
+  end
 end
 
