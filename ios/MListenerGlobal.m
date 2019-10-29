@@ -17,7 +17,7 @@ static NSMutableDictionary *mListenerDictionary = nil;
 
     mListener = [mListenerDictionary valueForKey:listenerKey];
     if (!mListener) {
-        mListener = [[MListener alloc] init:@"http://www.i.matheranalytics.comm"
+        mListener = [[MListener alloc] init:@"http://www.i.matheranalytics.com"
                 appId:@"v1"
                 customerId:accountName
                 market:accountNumber
