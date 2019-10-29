@@ -17,11 +17,11 @@ static NSMutableDictionary *mListenerDictionary = nil;
 
     mListener = [mListenerDictionary valueForKey:listenerKey];
     if (!mListener) {
-        mListener = [[MListener alloc] init:@"http:www.i.matheranalytics.com"
+        mListener = [[MListener alloc] init:@"http://www.i.matheranalytics.com"
                 appId:@"v1"
                 customerId:accountName
                 market:accountNumber
-                cookieDomain:@"newsreader.com"
+                cookieDomain:@".matheranalytics.com"
                 enableActivityTracking:YES];
 
         mListenerDictionary[listenerKey] = mListener;
