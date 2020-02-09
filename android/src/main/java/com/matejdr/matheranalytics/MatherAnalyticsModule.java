@@ -1,6 +1,7 @@
 package com.matejdr.matheranalytics;
 
 import java.util.HashMap;
+import android.app.Activity;
 
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
@@ -15,7 +16,7 @@ import com.matheranalytics.listener.tracker.MUserDB;
 import com.matheranalytics.listener.tracker.events.MPageView;
 import com.matheranalytics.listener.tracker.events.MActionEvent;
 import com.matheranalytics.listener.tracker.events.MUnstructured;
-import com.matheranalytics.listener.tracker.MLogger;
+//import com.matheranalytics.listener.tracker.MLogger;
 
 public class MatherAnalyticsModule extends ReactContextBaseJavaModule implements LifecycleEventListener {
 
@@ -37,8 +38,12 @@ public class MatherAnalyticsModule extends ReactContextBaseJavaModule implements
     private synchronized MListener getMListener(String accountName, String accountNumber) {
         String listenerId = accountName + accountNumber;
         if (!mListenerList.containsKey(listenerId)) {
+            Activity activity = getCurrentActivity();
+            if (activity == null) {
+                return null;
+            }
             MListener mListener = new MListener
-                    .Builder(getCurrentActivity(), accountName, accountNumber)
+                    .Builder(activity, accountName, accountNumber)
                     //.logLevel(MLogger.LogLevel.DEBUG)
                     .enableActivityTracking(true)
                     .build();
