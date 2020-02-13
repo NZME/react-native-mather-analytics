@@ -1,7 +1,7 @@
 {
   "name": "react-native-mather-analytics",
   "title": "React Native Mather Analytics",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "NZME React Native implementation for mather analytics tracking",
   "types": "./types/index.d.ts",
   "main": "./lib/index.js",
