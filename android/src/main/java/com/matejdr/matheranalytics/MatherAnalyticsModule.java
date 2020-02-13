@@ -32,17 +32,21 @@ public class MatherAnalyticsModule extends ReactContextBaseJavaModule implements
         return "MatherAnalytics";
     }
 
-    HashMap<String, MListener> mListenerList = new HashMap<String, MListener>();
+    private HashMap<String, MListener> mListenerList = new HashMap<String, MListener>();
 
     private synchronized MListener getMListener(String accountName, String accountNumber) {
         String listenerId = accountName + accountNumber;
         if (!mListenerList.containsKey(listenerId)) {
-            MListener mListener = new MListener
-                    .Builder(getCurrentActivity(), accountName, accountNumber)
-                    //.logLevel(MLogger.LogLevel.DEBUG)
-                    .enableActivityTracking(true)
-                    .build();
-            mListenerList.put(listenerId, mListener);
+            try {
+                MListener mListener = new MListener
+                        .Builder(getCurrentActivity(), accountName, accountNumber)
+                        //.logLevel(MLogger.LogLevel.DEBUG)
+                        .enableActivityTracking(true)
+                        .build();
+                mListenerList.put(listenerId, mListener);
+            } catch (NullPointerException e) {
+                return null;
+            }
         }
         return mListenerList.get(listenerId);
     }
@@ -217,7 +221,7 @@ public class MatherAnalyticsModule extends ReactContextBaseJavaModule implements
             }
 
             if (payload.hasKey("userDB") && payload.getType("userDB") == ReadableType.Map) {
-                mPageView.userDB(getUserDB(accountName, accountNumber, payload.getMap("userDB")));
+                mPageView.userDB(getUserDB(payload.getMap("userDB"), mListener));
             }
 
             mListener.track(mPageView.build());
@@ -285,8 +289,8 @@ public class MatherAnalyticsModule extends ReactContextBaseJavaModule implements
         }
     }
 
-    private MUserDB getUserDB(String accountName, String accountNumber, ReadableMap userDB) {
-        MUserDB.Builder newUserDB = new MUserDB.Builder(getMListener(accountName, accountNumber));
+    private MUserDB getUserDB(ReadableMap userDB, MListener mListener) {
+        MUserDB.Builder newUserDB = new MUserDB.Builder(mListener);
         if (userDB.hasKey("minPageViews")) {
             if (userDB.getType("minPageViews") == ReadableType.Number) {
                 newUserDB.minPageViews(userDB.getInt("minPageViews"));
