@@ -44,7 +44,7 @@ public class MatherAnalyticsModule extends ReactContextBaseJavaModule implements
                         .enableActivityTracking(true)
                         .build();
                 mListenerList.put(listenerId, mListener);
-            } catch (NullPointerException e) {
+            } catch (Exception e) {
                 return null;
             }
         }
