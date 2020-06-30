@@ -183,28 +183,46 @@ RCT_EXPORT_METHOD(trackAction:(nonnull NSString *)accountName
                                           accountNumber:accountNumber];
 
     NSMutableDictionary *event = [[NSMutableDictionary alloc] init];
-        
+    NSMutableDictionary *options = [[NSMutableDictionary alloc] init];
+
+    // Handles Event
+    
+    /*
     // no support for type
-//    NSString* type = [RCTConvert NSString:payload[@"type"]];
-//    if (type) {
-//        event[@"type"] = type;
-//    }
+    NSString* type = [RCTConvert NSString:payload[@"type"]];
+    if (type) {
+        event[@"type"] = type;
+    }
+     */
+    
     NSString* category = [RCTConvert NSString:payload[@"category"]];
     if (category) {
-        event[@"category"] = category;
+        [event setObject:category forKey:@"category"];
     }
     NSString* action = [RCTConvert NSString:payload[@"action"]];
     if (action) {
-        event[@"action"] = action;
+        [event setObject:action forKey:@"action"];
     }
     
-    // no support for custom
-//    NSDictionary* custom = [RCTConvert NSDictionary:payload[@"custom"]];
-//    if (custom) {
-//        impression[@"custom"] = custom;
-//    }
+    // Handles Options
+    NSArray *offers = [RCTConvert NSArray:payload[@"offers"]];
+    if (offers) {
+        [options setObject:offers forKey:@"offers"];
+    }
 
-    [mListener trackEvent:event];
+    /*
+    // no support for custom
+    NSDictionary* custom = [RCTConvert NSDictionary:payload[@"custom"]];
+    if (custom) {
+        impression[@"custom"] = custom;
+    }
+     */
+
+    if ([options count] > 0) {
+        [mListener trackEvent:event options:options];
+    } else {
+        [mListener trackEvent:event];
+    }
 }
 
 RCT_EXPORT_METHOD(trackImpression:(nonnull NSString *)accountName
