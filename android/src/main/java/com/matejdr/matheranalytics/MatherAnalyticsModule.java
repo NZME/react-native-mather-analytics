@@ -257,32 +257,31 @@ public class MatherAnalyticsModule extends ReactContextBaseJavaModule implements
                 }
             }
             if (payload.hasKey("offers") && payload.getType("offers") == ReadableType.Array) {
+                if (payload.getArray("offers").size() == 1) {
+                    if (payload.getArray("offers").getMap(0).getString("offerId") != null && payload.getArray("offers").getMap(0).getString("offerName") != null) {
+                        MUtil.MapDef offer1 = new MUtil.MapDef();
+                        offer1.put("offerId", payload.getArray("offers").getMap(0).getString("offerId"));
+                        offer1.put("offerName", payload.getArray("offers").getMap(0).getString("offerName"));
+                        mActionEvent.addOffer(offer1);
+                    }
+                } else if (payload.getArray("offers").size() > 1) {
+                    List<MUtil.MapDef> list = new ArrayList<>();
 
-                // TODO null check values
-
-                 if (payload.getArray("offers").size() == 1) {
-                    // TODO null check strings
-                    MUtil.MapDef offer1 = new MUtil.MapDef();
-                    offer1.put("offerId", payload.getArray("offers").getMap(0).getString("offerId"));
-                    offer1.put("offerName", payload.getArray("offers").getMap(0).getString("offerName"));
-                    mActionEvent.addOffer(offer1);
-
-                 } else if (payload.getArray("offers").size() > 1) {
-                     List<MUtil.MapDef> list = new ArrayList<>();
-
-                     for (int i = 0; i < payload.getArray("offers").size(); i++) {
-                         MUtil.MapDef offer = new MUtil.MapDef();
-                         offer.put("offerId", payload.getArray("offers").getMap(i).getString("offerId"));
-                         offer.put("offerName", payload.getArray("offers").getMap(i).getString("offerName"));
-                         list.add(offer);
-                     }
-                     mActionEvent.offers(list);
-
-                 } else {
-                     System.out.println("No data");
-                 }
+                    for (int i = 0; i < payload.getArray("offers").size(); i++) {
+                        if (payload.getArray("offers").getMap(i).getString("offerId") != null && payload.getArray("offers").getMap(i).getString("offerName") != null) {
+                            MUtil.MapDef offer = new MUtil.MapDef();
+                            offer.put("offerId", payload.getArray("offers").getMap(i).getString("offerId"));
+                            offer.put("offerName", payload.getArray("offers").getMap(i).getString("offerName"));
+                            list.add(offer);
+                        }
+                    }
+                    if (list.size() >= 1) {
+                        mActionEvent.offers(list);
+                    }
+                } else {
+                    System.out.println("No data");
+                }
             }
-
             mListener.track(mActionEvent.build());
         }
     }
