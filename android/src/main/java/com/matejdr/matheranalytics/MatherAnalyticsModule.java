@@ -1,6 +1,11 @@
 package com.matejdr.matheranalytics;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Set;
+
+import android.util.Log;
 
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
@@ -12,6 +17,7 @@ import com.facebook.react.bridge.LifecycleEventListener;
 
 import com.matheranalytics.listener.tracker.MListener;
 import com.matheranalytics.listener.tracker.MUserDB;
+import com.matheranalytics.listener.tracker.MUtil;
 import com.matheranalytics.listener.tracker.events.MPageView;
 import com.matheranalytics.listener.tracker.events.MActionEvent;
 import com.matheranalytics.listener.tracker.events.MUnstructured;
@@ -250,6 +256,33 @@ public class MatherAnalyticsModule extends ReactContextBaseJavaModule implements
                     mActionEvent.custom(custom.getString("name"), custom.getString("value"));
                 }
             }
+            if (payload.hasKey("offers") && payload.getType("offers") == ReadableType.Array) {
+
+                // TODO null check values
+
+                 if (payload.getArray("offers").size() == 1) {
+                    // TODO null check strings
+                    MUtil.MapDef offer1 = new MUtil.MapDef();
+                    offer1.put("offerId", payload.getArray("offers").getMap(0).getString("offerId"));
+                    offer1.put("offerName", payload.getArray("offers").getMap(0).getString("offerName"));
+                    mActionEvent.addOffer(offer1);
+
+                 } else if (payload.getArray("offers").size() > 1) {
+                     List<MUtil.MapDef> list = new ArrayList<>();
+
+                     for (int i = 0; i < payload.getArray("offers").size(); i++) {
+                         MUtil.MapDef offer = new MUtil.MapDef();
+                         offer.put("offerId", payload.getArray("offers").getMap(i).getString("offerId"));
+                         offer.put("offerName", payload.getArray("offers").getMap(i).getString("offerName"));
+                         list.add(offer);
+                     }
+                     mActionEvent.offers(list);
+
+                 } else {
+                     System.out.println("No data");
+                 }
+            }
+
             mListener.track(mActionEvent.build());
         }
     }
