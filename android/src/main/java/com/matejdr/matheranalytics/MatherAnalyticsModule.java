@@ -1,6 +1,11 @@
 package com.matejdr.matheranalytics;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Set;
+
+import android.util.Log;
 
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
@@ -12,6 +17,7 @@ import com.facebook.react.bridge.LifecycleEventListener;
 
 import com.matheranalytics.listener.tracker.MListener;
 import com.matheranalytics.listener.tracker.MUserDB;
+import com.matheranalytics.listener.tracker.MUtil;
 import com.matheranalytics.listener.tracker.events.MPageView;
 import com.matheranalytics.listener.tracker.events.MActionEvent;
 import com.matheranalytics.listener.tracker.events.MUnstructured;
@@ -248,6 +254,32 @@ public class MatherAnalyticsModule extends ReactContextBaseJavaModule implements
                 if (custom.hasKey("name") && custom.getType("name") == ReadableType.String
                         && custom.hasKey("value") && custom.getType("value") == ReadableType.String) {
                     mActionEvent.custom(custom.getString("name"), custom.getString("value"));
+                }
+            }
+            if (payload.hasKey("offers") && payload.getType("offers") == ReadableType.Array) {
+                if (payload.getArray("offers").size() == 1) {
+                    if (payload.getArray("offers").getMap(0).getString("offerId") != null && payload.getArray("offers").getMap(0).getString("offerName") != null) {
+                        MUtil.MapDef offer1 = new MUtil.MapDef();
+                        offer1.put("offerId", payload.getArray("offers").getMap(0).getString("offerId"));
+                        offer1.put("offerName", payload.getArray("offers").getMap(0).getString("offerName"));
+                        mActionEvent.addOffer(offer1);
+                    }
+                } else if (payload.getArray("offers").size() > 1) {
+                    List<MUtil.MapDef> list = new ArrayList<>();
+
+                    for (int i = 0; i < payload.getArray("offers").size(); i++) {
+                        if (payload.getArray("offers").getMap(i).getString("offerId") != null && payload.getArray("offers").getMap(i).getString("offerName") != null) {
+                            MUtil.MapDef offer = new MUtil.MapDef();
+                            offer.put("offerId", payload.getArray("offers").getMap(i).getString("offerId"));
+                            offer.put("offerName", payload.getArray("offers").getMap(i).getString("offerName"));
+                            list.add(offer);
+                        }
+                    }
+                    if (list.size() >= 1) {
+                        mActionEvent.offers(list);
+                    }
+                } else {
+                    System.out.println("No data");
                 }
             }
             mListener.track(mActionEvent.build());
