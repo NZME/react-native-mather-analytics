@@ -204,10 +204,10 @@ RCT_EXPORT_METHOD(trackAction:(nonnull NSString *)accountName
         [event setObject:action forKey:@"action"];
     }
     
-    // Handles Options
     NSArray *offers = [RCTConvert NSArray:payload[@"offers"]];
+    NSMutableArray *offersArr = [NSMutableArray arrayWithArray:offers];
     if (offers) {
-        [options setObject:offers forKey:@"offers"];
+        [event setObject:offersArr forKey:@"offers"];
     }
 
     /*
