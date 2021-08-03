@@ -43,13 +43,13 @@
 }
 
 + (instancetype) payloadWithDictionary:(NSDictionary *) dict {
-    return [[self alloc] initWithDictionary:dict];
+    return [[self alloc] initWithNSDictionary:dict];
 }
 
 - (void) addValueToPayload:(NSString *)value forKey:(NSString *)key {
     if (value == nil) {
         [_payload removeObjectForKey:key];
-        
+
     } else {
         [_payload setObject:value forKey:key];
     }
@@ -86,12 +86,12 @@
     else if ([object isKindOfClass:[NSNumber class]])
     {
         NSString *num = [object stringValue];
-        
+
         if ([parent isKindOfClass:[NSArray class]]) {
             NSUInteger idx = [((NSNumber *)key) intValue];
-            
+
             [parent replaceObjectAtIndex:idx withObject:num];
-            
+
         } else {
             [parent setObject:num forKey:(NSString *)key];
         }
@@ -102,33 +102,33 @@
                   base64Encoded:(Boolean)encode
                 typeWhenEncoded:(NSString *)typeEncoded
              typeWhenNotEncoded:(NSString *)typeNotEncoded {
-    
+
     NSError* error = nil;
     NSData *json = [NSJSONSerialization dataWithJSONObject:dict options:0 error:&error];
     NSMutableDictionary *mdict = [NSJSONSerialization JSONObjectWithData:json options:NSJSONReadingAllowFragments|NSJSONReadingMutableContainers error:&error];
     json = [NSJSONSerialization dataWithJSONObject:[self processParsedObject:mdict] options:0 error:&error];
-    
+
     if (error) {
         LogError(@"addJsonToPayload: error: %@", error.userInfo);
         return;
     }
-    
+
     // Checks if it conforms to NSDictionary type
     if ([mdict isKindOfClass:[NSDictionary class]]) {
         NSString *encodedString = nil;
         if (encode) {
             encodedString = [json base64EncodedStringWithOptions:0];
-            
+
             // We need URL safe with no padding. Since there is no built-in way to do this, we transform
             // the encoded payload to make it URL safe by replacing chars that are different in the URL-safe
             // alphabet. Namely, 62 is - instead of +, and 63 _ instead of /.
             // See: https://tools.ietf.org/html/rfc4648#section-5
             encodedString = [[encodedString stringByReplacingOccurrencesOfString:@"/" withString:@"_"]
                              stringByReplacingOccurrencesOfString:@"+" withString:@"-"];
-            
+
             // There is also no padding since the length is implicitly known.
             encodedString = [encodedString stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"="]];
-            
+
             [self addValueToPayload:encodedString forKey:typeEncoded];
         } else {
             [self addValueToPayload:[[NSString alloc] initWithData:json encoding:NSUTF8StringEncoding] forKey:typeNotEncoded];
@@ -140,21 +140,21 @@
                   base64Encoded:(Boolean)encode
                 typeWhenEncoded:(NSString *)typeEncoded
              typeWhenNotEncoded:(NSString *)typeNotEncoded {
-    
+
     NSData *data = [json dataUsingEncoding:NSUTF8StringEncoding];
     NSError *error = nil;
     NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
-    
+
     if (error) {
         LogError(@"addJsonToPayload: error: %@", error.userInfo);
         return;
     }
-    
+
     [self addDictionaryToPayload:dict
                    base64Encoded:encode
                  typeWhenEncoded:typeEncoded
               typeWhenNotEncoded:typeNotEncoded];
-    
+
 }
 
 
